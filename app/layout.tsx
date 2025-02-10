@@ -1,31 +1,31 @@
 import type { Metadata } from 'next'
-import localFont from 'next/font/local'
+import { Inter } from 'next/font/google'
 import './globals.css'
+import Header from '@/components/Header'
+import { AuthProvider } from '@/contexts/AuthContext'
 
-const geistSans = localFont({
-  src: './fonts/GeistVF.woff',
-  variable: '--font-geist-sans',
-  weight: '100 900',
-})
-const geistMono = localFont({
-  src: './fonts/GeistMonoVF.woff',
-  variable: '--font-geist-mono',
-  weight: '100 900',
-})
+const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'CodeGuide Starter Pro',
-  description: 'Starter kit from codeguide.dev',
+  title: 'Imitate Tweet',
+  description: 'Generate tweets by imitating your favorite Twitter users',
 }
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode
-}>) {
+}) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>{children}</body>
+      <body className={inter.className}>
+        <div className="min-h-screen bg-gray-50">
+          <AuthProvider>
+          <Header />
+          <main className="py-6">{children}</main>
+          </AuthProvider>
+        </div>
+      </body>
     </html>
   )
 }
